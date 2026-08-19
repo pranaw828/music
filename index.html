@@ -26,18 +26,26 @@
                 <span class="logo-text">SONORA</span>
             </a>
             
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#" id="nav-link-premium">Premium</a></li>
-                    <li><a href="#discover" id="nav-link-explore">Explore</a></li>
-                    <li><a href="#features" id="nav-link-features">Features</a></li>
-                    <li><a href="#download" id="nav-link-download">Download</a></li>
-                </ul>
-            </nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <div class="nav-menu" id="nav-menu">
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#" id="nav-link-premium">Premium</a></li>
+                        <li><a href="#discover" id="nav-link-explore">Explore</a></li>
+                        <li><a href="#features" id="nav-link-features">Features</a></li>
+                        <li><a href="#download" id="nav-link-download">Download</a></li>
+                    </ul>
+                </nav>
 
-            <div class="nav-actions">
-                <a href="#" class="nav-login" id="btn-login">Log in</a>
-                <button class="btn btn-primary" id="btn-signup" onclick="document.getElementById('cta-section').scrollIntoView({behavior: 'smooth'})">Sign up free</button>
+                <div class="nav-actions">
+                    <a href="#" class="nav-login" id="btn-login">Log in</a>
+                    <button class="btn btn-primary" id="btn-signup" onclick="document.getElementById('cta-section').scrollIntoView({behavior: 'smooth'})">Sign up free</button>
+                </div>
             </div>
         </div>
     </header>
@@ -57,15 +65,6 @@
                     </button>
                 </div>
 
-                <div class="social-proof">
-                    <div class="avatar-group">
-                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80')"></div>
-                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80')"></div>
-                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80')"></div>
-                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=80&h=80&q=80')"></div>
-                    </div>
-                    <span class="social-proof-text">Join millions of listeners already feeling more.</span>
-                </div>
             </div>
 
             <div class="hero-right">
@@ -280,7 +279,7 @@
                     </div>
                     <div class="playlist-title">Discover Weekly</div>
                     <div class="playlist-desc">Your weekly mixtape of fresh sounds.</div>
-                    <div class="playlist-followers">2.6M followers</div>
+                    <div class="playlist-followers">Playlist • 30 songs</div>
                 </div>
 
                 <!-- Album 2 -->
@@ -293,7 +292,7 @@
                     </div>
                     <div class="playlist-title">Daily Mix 1</div>
                     <div class="playlist-desc">Personalized mix based on your favorites.</div>
-                    <div class="playlist-followers">3.2M followers</div>
+                    <div class="playlist-followers">Made for you • 50 songs</div>
                 </div>
 
                 <!-- Album 3 -->
@@ -306,7 +305,7 @@
                     </div>
                     <div class="playlist-title">lofi beats</div>
                     <div class="playlist-desc">Chill synth and beats to study and relax.</div>
-                    <div class="playlist-followers">1.8M followers</div>
+                    <div class="playlist-followers">Playlist • 120 songs</div>
                 </div>
 
                 <!-- Album 4 -->
@@ -319,7 +318,7 @@
                     </div>
                     <div class="playlist-title">Today's Top Hits</div>
                     <div class="playlist-desc">The absolute hottest 50 tracks today.</div>
-                    <div class="playlist-followers">28.7M followers</div>
+                    <div class="playlist-followers">Playlist • 50 songs</div>
                 </div>
 
                 <!-- Album 5 -->
@@ -332,7 +331,7 @@
                     </div>
                     <div class="playlist-title">Rap Caviar</div>
                     <div class="playlist-desc">Brand new hip-hop tracks and heavy beats.</div>
-                    <div class="playlist-followers">12.4M followers</div>
+                    <div class="playlist-followers">Playlist • 50 songs</div>
                 </div>
 
                 <!-- Album 6 -->
@@ -345,7 +344,7 @@
                     </div>
                     <div class="playlist-title">All Out 2010s</div>
                     <div class="playlist-desc">The decade's biggest pop and rock hits.</div>
-                    <div class="playlist-followers">9.3M followers</div>
+                    <div class="playlist-followers">Album • 12 tracks</div>
                 </div>
             </div>
         </div>
@@ -429,6 +428,6 @@
     </footer>
 
     <canvas id="magical-overlay"></canvas>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>

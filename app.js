@@ -11,6 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Mobile Navigation Drawer Toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", () => {
+            menuToggle.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+        
+        // Close menu when navigation links are clicked
+        document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", () => {
+                menuToggle.classList.remove("active");
+                navMenu.classList.remove("active");
+            });
+        });
+    }
+
     // Track Data
     const tracks = [
         {
@@ -103,6 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
             case "late-night":
                 pColor = "#6366f1"; // indigo
                 sColor = "#8b5cf6"; // violet
+                break;
+            case "disco":
+                pColor = "#ec4899"; // pink
+                sColor = "#f59e0b"; // gold
                 break;
             default:
                 pColor = "#1ed760";
@@ -539,6 +561,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             update() {
+                const isDisco = document.body.classList.contains("disco-mode");
+                
                 // Live wallpaper wrap-around movement
                 // Gentle direction changes (random walk/organic drift)
                 this.anglePhase += 0.04;
@@ -546,15 +570,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentAngle += (Math.random() - 0.5) * 0.12; // Organic turns
                 
                 let speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                // Keep the speed fast! Bounded between 2.0 and 3.8
-                speed = Math.max(2.0, Math.min(3.8, speed + (Math.random() - 0.5) * 0.1));
+                // Keep the speed fast! Bounded between 2.0 and 3.8 (or 4.5 to 7.5 in disco mode)
+                const minSpeed = isDisco ? 4.5 : 2.0;
+                const maxSpeed = isDisco ? 7.5 : 3.8;
+                speed = Math.max(minSpeed, Math.min(maxSpeed, speed + (Math.random() - 0.5) * (isDisco ? 0.25 : 0.1)));
                 
                 this.vx = Math.cos(currentAngle) * speed;
                 this.vy = Math.sin(currentAngle) * speed;
 
                 this.x += this.vx;
                 this.y += this.vy;
-                this.wingFlapPhase += this.wingFlapSpeed;
+                this.wingFlapPhase += this.wingFlapSpeed * (isDisco ? 2.5 : 1.0);
 
                 // Live Wallpaper Wrap-Around Logic
                 const pad = this.size + 15;
@@ -667,10 +693,16 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         function spawnAmbientGlitter() {
-            if (sparkles.length < 120 && Math.random() < 0.08) {
+            const isDisco = document.body.classList.contains("disco-mode");
+            const sparkleChance = isDisco ? 0.35 : 0.08;
+            const noteChance = isDisco ? 0.15 : 0.035;
+            const maxSparkles = isDisco ? 300 : 120;
+            const maxNotes = isDisco ? 100 : 35;
+
+            if (sparkles.length < maxSparkles && Math.random() < sparkleChance) {
                 sparkles.push(new Sparkle(Math.random() * w, Math.random() * h));
             }
-            if (musicNotes.length < 35 && Math.random() < 0.035) {
+            if (musicNotes.length < maxNotes && Math.random() < noteChance) {
                 // Spawn ambient music notes from corners
                 musicNotes.push(new MusicNote(null, null, true));
             }
@@ -718,6 +750,61 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     // INITIALIZATION RUNNER
     // ==========================================
+    // Easter Egg Implementation
+    let logoClicks = 0;
+    const navLogo = document.getElementById("nav-logo");
+    
+    function showEasterEggToast() {
+        let toast = document.querySelector(".easter-egg-toast");
+        if (!toast) {
+            toast = document.createElement("div");
+            toast.className = "easter-egg-toast";
+            toast.innerHTML = `<span class="toast-icon">✨</span><span>COSMIC DISCO ACTIVATED! Enjoy the magic.</span>`;
+            document.body.appendChild(toast);
+        }
+        
+        setTimeout(() => toast.classList.add("show"), 100);
+        
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 5000);
+    }
+
+    function activateEasterEgg() {
+        if (document.body.classList.contains("disco-mode")) return;
+        
+        document.body.classList.add("disco-mode");
+        showEasterEggToast();
+        
+        const secretTrack = {
+            id: tracks.length,
+            title: "Antigravity Dreams",
+            artist: "The Deepminders",
+            duration: "2:40",
+            durationSec: 160,
+            color: "linear-gradient(135deg, #f43f5e, #f59e0b)",
+            mood: "disco"
+        };
+        tracks.push(secretTrack);
+        
+        loadTrack(tracks.length - 1, true);
+    }
+    
+    if (navLogo) {
+        navLogo.addEventListener("click", (e) => {
+            e.preventDefault();
+            logoClicks++;
+            if (logoClicks >= 5) {
+                activateEasterEgg();
+                logoClicks = 0;
+            }
+            // Reset counter after 3 seconds of inactivity
+            setTimeout(() => {
+                if (logoClicks > 0) logoClicks = 0;
+            }, 3000);
+        });
+    }
+
     loadTrack(0);
     initConnectingWaveform();
     initMagicalOverlay();
