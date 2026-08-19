@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const heroPlayerProgress = document.getElementById("hero-player-progress");
     const heroPlayerTime = document.getElementById("hero-player-time");
     const heroPlayerTotal = document.getElementById("hero-player-total");
+    const vinylWrapper = document.getElementById("hero-art-vinyl");
+    const vinylLabel = document.querySelector(".vinyl-label");
 
     // Dynamic Atmosphere Changer (updates CSS variables smoothly)
     function changeAtmosphere(moodName) {
@@ -124,6 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (heroPlayerCover) heroPlayerCover.style.background = track.color;
         if (heroPlayerTotal) heroPlayerTotal.textContent = track.duration;
 
+        // Update vinyl cover art label
+        if (vinylLabel) {
+            vinylLabel.style.backgroundImage = track.color;
+        }
+
         playProgress = 0;
         updateProgressBar();
         changeAtmosphere(track.mood);
@@ -139,6 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
         isPlaying = true;
         if (heroPlayerPlay) {
             heroPlayerPlay.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="#000000"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+        }
+        if (vinylWrapper) {
+            vinylWrapper.classList.add("playing");
         }
 
         if (progressInterval) clearInterval(progressInterval);
@@ -156,6 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
         isPlaying = false;
         if (heroPlayerPlay) {
             heroPlayerPlay.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="#000000"><path d="M8 5v14l11-7z"/></svg>`;
+        }
+        if (vinylWrapper) {
+            vinylWrapper.classList.remove("playing");
         }
         if (progressInterval) {
             clearInterval(progressInterval);
