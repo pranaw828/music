@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update vinyl cover art label
         if (vinylLabel) {
-            vinylLabel.style.backgroundImage = track.color;
+            vinylLabel.style.background = track.color;
         }
 
         playProgress = 0;
@@ -414,22 +414,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Floating Music Note Class
         class MusicNote {
-            constructor(x, y) {
-                this.x = x || Math.random() * w;
-                this.y = y || h + 20;
-                this.size = Math.random() * 12 + 12; // size between 12px and 24px
-                this.vx = (Math.random() - 0.5) * 1.0;
-                this.vy = -Math.random() * 1.5 - 0.5; // drift upwards
+            constructor(x, y, spawnFromCorner = false) {
+                this.size = Math.random() * 14 + 14; // size between 14px and 28px
                 this.alpha = 1;
-                this.fadeSpeed = Math.random() * 0.01 + 0.006;
+                this.fadeSpeed = Math.random() * 0.005 + 0.004; // slower fade so they cross the screen
                 this.rotation = Math.random() * Math.PI * 2;
-                this.rotationSpeed = (Math.random() - 0.5) * 0.03;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.04;
 
                 const noteSymbols = ["🎵", "🎶", "♩", "♫", "♬", "♭", "♮"];
                 this.char = noteSymbols[Math.floor(Math.random() * noteSymbols.length)];
 
                 const colors = ["#1ed760", "#8b5cf6", "#ec4899", "#06b6d4", "#ffffff"];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
+
+                if (x !== undefined && x !== null && y !== undefined && y !== null) {
+                    this.x = x;
+                    this.y = y;
+                    this.vx = (Math.random() - 0.5) * 1.5;
+                    this.vy = (Math.random() - 0.5) * 1.5;
+                } else if (spawnFromCorner) {
+                    // Spawn from random corner and fly across
+                    const corner = Math.floor(Math.random() * 4);
+                    switch(corner) {
+                        case 0: // Top-Left
+                            this.x = -20;
+                            this.y = -20;
+                            this.vx = Math.random() * 1.2 + 0.5;
+                            this.vy = Math.random() * 1.2 + 0.5;
+                            break;
+                        case 1: // Bottom-Left
+                            this.x = -20;
+                            this.y = h + 20;
+                            this.vx = Math.random() * 1.2 + 0.5;
+                            this.vy = -(Math.random() * 1.2 + 0.5);
+                            break;
+                        case 2: // Top-Right
+                            this.x = w + 20;
+                            this.y = -20;
+                            this.vx = -(Math.random() * 1.2 + 0.5);
+                            this.vy = Math.random() * 1.2 + 0.5;
+                            break;
+                        case 3: // Bottom-Right
+                            this.x = w + 20;
+                            this.y = h + 20;
+                            this.vx = -(Math.random() * 1.2 + 0.5);
+                            this.vy = -(Math.random() * 1.2 + 0.5);
+                            break;
+                    }
+                } else {
+                    // Default bottom spawn
+                    this.x = Math.random() * w;
+                    this.y = h + 20;
+                    this.vx = (Math.random() - 0.5) * 1.0;
+                    this.vy = -Math.random() * 1.5 - 0.5;
+                    this.fadeSpeed = Math.random() * 0.01 + 0.006;
+                }
             }
 
             update() {
@@ -460,41 +499,75 @@ document.addEventListener("DOMContentLoaded", () => {
         // Updated Butterfly with Music Note Trail
         class Butterfly {
             constructor() {
-                this.reset();
-                this.x = -50 - Math.random() * 500;
+                this.reset(true); // Initial load spreads them across the screen
             }
 
-            reset() {
-                this.x = -50;
-                this.y = Math.random() * (h * 0.7) + h * 0.1;
-                this.vx = Math.random() * 1.5 + 1.2;
-                this.vy = 0;
+            reset(initial = false) {
+                if (initial) {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * 2;
+                    this.vy = (Math.random() - 0.5) * 2;
+                } else {
+                    // Spawn from one of the four screen corners
+                    const corner = Math.floor(Math.random() * 4);
+                    switch(corner) {
+                        case 0: // Top-Left
+                            this.x = -30;
+                            this.y = -30;
+                            this.vx = Math.random() * 1.5 + 0.8;
+                            this.vy = Math.random() * 1.5 + 0.8;
+                            break;
+                        case 1: // Bottom-Left
+                            this.x = -30;
+                            this.y = h + 30;
+                            this.vx = Math.random() * 1.5 + 0.8;
+                            this.vy = -(Math.random() * 1.5 + 0.8);
+                            break;
+                        case 2: // Top-Right
+                            this.x = w + 30;
+                            this.y = -30;
+                            this.vx = -(Math.random() * 1.5 + 0.8);
+                            this.vy = Math.random() * 1.5 + 0.8;
+                            break;
+                        case 3: // Bottom-Right
+                            this.x = w + 30;
+                            this.y = h + 30;
+                            this.vx = -(Math.random() * 1.5 + 0.8);
+                            this.vy = -(Math.random() * 1.5 + 0.8);
+                            break;
+                    }
+                }
+
                 this.baseY = this.y;
                 this.anglePhase = Math.random() * Math.PI * 2;
                 this.wingFlapPhase = Math.random() * Math.PI * 2;
                 this.wingFlapSpeed = Math.random() * 0.15 + 0.18;
                 const colors = ["#1ed760", "#8b5cf6", "#ec4899", "#06b6d4"];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.size = Math.random() * 8 + 18; // Increased butterfly size for visibility
+                this.size = Math.random() * 8 + 18; // Large beautiful butterfly
             }
 
             update() {
                 this.x += this.vx;
-                this.anglePhase += 0.03;
+                this.anglePhase += 0.04;
                 this.wingFlapPhase += this.wingFlapSpeed;
 
-                this.vy = Math.sin(this.anglePhase) * 1.5;
-                this.y = this.baseY + Math.sin(this.anglePhase * 0.8) * 80;
+                // Sine wave flight wobble
+                const wobble = Math.sin(this.anglePhase) * 1.2;
+                this.x += -this.vy * wobble * 0.1;
+                this.y += this.vx * wobble * 0.1 + this.vy;
 
-                if (this.x > w + 50) {
+                // Reset if offscreen (in any direction)
+                if (this.x < -100 || this.x > w + 100 || this.y < -100 || this.y > h + 100) {
                     this.reset();
                 }
 
                 // Spawn sparkles and music notes
-                if (Math.random() < 0.3) {
+                if (Math.random() < 0.25) {
                     sparkles.push(new Sparkle(this.x, this.y, true));
                 }
-                if (Math.random() < 0.06) {
+                if (Math.random() < 0.05) {
                     musicNotes.push(new MusicNote(this.x, this.y));
                 }
             }
@@ -580,14 +653,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const sparkles = [];
         const musicNotes = [];
-        const butterflies = [new Butterfly(), new Butterfly(), new Butterfly()];
+        // Increased butterfly population to 6 for a richer visual effect
+        const butterflies = [
+            new Butterfly(), new Butterfly(), new Butterfly(),
+            new Butterfly(), new Butterfly(), new Butterfly()
+        ];
 
         function spawnAmbientGlitter() {
             if (sparkles.length < 120 && Math.random() < 0.08) {
                 sparkles.push(new Sparkle(Math.random() * w, Math.random() * h));
             }
-            if (musicNotes.length < 25 && Math.random() < 0.015) {
-                musicNotes.push(new MusicNote());
+            if (musicNotes.length < 35 && Math.random() < 0.035) {
+                // Spawn ambient music notes from corners
+                musicNotes.push(new MusicNote(null, null, true));
             }
         }
 
