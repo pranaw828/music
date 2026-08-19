@@ -436,8 +436,9 @@ a {
     width: 360px;
     height: 360px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(30, 215, 96, 0.4) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%);
-    filter: blur(25px);
+    background: url('hero_music_art.png') center / cover no-repeat;
+    opacity: 0.45;
+    filter: blur(8px) drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
     z-index: 1;
     animation: sphereGlowPulse 12s ease-in-out infinite alternate;
 }

@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             artist: "Nova Vale",
             duration: "3:18",
             durationSec: 198,
-            color: "url('cover_discover.png') center / cover no-repeat",
+            color: "url('hero_music_art.png') center / cover no-repeat",
             mood: "chill"
         },
         {
@@ -475,7 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.wingFlapSpeed = Math.random() * 0.15 + 0.18;
                 const colors = ["#1ed760", "#8b5cf6", "#ec4899", "#06b6d4"];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.size = Math.random() * 6 + 10;
+                this.size = Math.random() * 8 + 18; // Increased butterfly size for visibility
             }
 
             update() {
@@ -509,32 +509,69 @@ document.addEventListener("DOMContentLoaded", () => {
                 const flap = Math.abs(Math.sin(this.wingFlapPhase));
 
                 ctx.shadowColor = this.color;
-                ctx.shadowBlur = 12;
+                ctx.shadowBlur = 15;
+
+                // Draw Outer Wings (Left & Right)
                 ctx.fillStyle = this.color;
-
+                ctx.globalAlpha = 0.4;
                 ctx.beginPath();
-                ctx.ellipse(-3, -3, this.size * flap, this.size * 0.6, -Math.PI / 6, 0, Math.PI * 2);
-                ctx.ellipse(-3, 3, this.size * 0.7 * flap, this.size * 0.45, Math.PI / 6, 0, Math.PI * 2);
+                // Left Wing Top
+                ctx.ellipse(-4, -4, this.size * flap, this.size * 0.7, -Math.PI / 6, 0, Math.PI * 2);
+                // Left Wing Bottom
+                ctx.ellipse(-4, 4, this.size * 0.7 * flap, this.size * 0.5, Math.PI / 6, 0, Math.PI * 2);
+                // Right Wing Top
+                ctx.ellipse(4, -4, this.size * flap, this.size * 0.7, Math.PI / 6, 0, Math.PI * 2);
+                // Right Wing Bottom
+                ctx.ellipse(4, 4, this.size * 0.7 * flap, this.size * 0.5, -Math.PI / 6, 0, Math.PI * 2);
                 ctx.fill();
 
+                // Draw Inner Wing Patterns (Glow overlay)
+                ctx.globalAlpha = 0.95;
+                ctx.fillStyle = "#ffffff";
                 ctx.beginPath();
-                ctx.ellipse(3, -3, this.size * flap, this.size * 0.6, Math.PI / 6, 0, Math.PI * 2);
-                ctx.ellipse(3, 3, this.size * 0.7 * flap, this.size * 0.45, -Math.PI / 6, 0, Math.PI * 2);
+                ctx.ellipse(-4, -4, this.size * 0.5 * flap, this.size * 0.35, -Math.PI / 6, 0, Math.PI * 2);
+                ctx.ellipse(4, -4, this.size * 0.5 * flap, this.size * 0.35, Math.PI / 6, 0, Math.PI * 2);
                 ctx.fill();
 
-                ctx.strokeStyle = "#ffffff";
+                // Draw Wing Borders
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
                 ctx.lineWidth = 1;
                 ctx.beginPath();
-                ctx.moveTo(-1, -5);
-                ctx.quadraticCurveTo(-4, -10, -6, -12);
-                ctx.moveTo(1, -5);
-                ctx.quadraticCurveTo(4, -10, 6, -12);
+                ctx.ellipse(-4, -4, this.size * flap, this.size * 0.7, -Math.PI / 6, 0, Math.PI * 2);
+                ctx.ellipse(4, -4, this.size * flap, this.size * 0.7, Math.PI / 6, 0, Math.PI * 2);
                 ctx.stroke();
 
-                ctx.fillStyle = "#ffffff";
-                ctx.shadowBlur = 0;
+                // Draw Antennae with glowing tips
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 1.5;
                 ctx.beginPath();
-                ctx.ellipse(0, 0, 1.8, this.size * 0.6, 0, 0, Math.PI * 2);
+                // Left antenna
+                ctx.moveTo(-1, -6);
+                ctx.quadraticCurveTo(-6, -14, -9, -16);
+                // Right antenna
+                ctx.moveTo(1, -6);
+                ctx.quadraticCurveTo(6, -14, 9, -16);
+                ctx.stroke();
+
+                // Antenna tips
+                ctx.fillStyle = "#ffffff";
+                ctx.shadowColor = "#ffffff";
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(-9, -16, 2, 0, Math.PI * 2);
+                ctx.arc(9, -16, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw body
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10;
+                let bodyGrad = ctx.createLinearGradient(0, -this.size * 0.6, 0, this.size * 0.6);
+                bodyGrad.addColorStop(0, "#ffffff");
+                bodyGrad.addColorStop(0.5, this.color);
+                bodyGrad.addColorStop(1, "#000000");
+                ctx.fillStyle = bodyGrad;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 2.5, this.size * 0.7, 0, 0, Math.PI * 2);
                 ctx.fill();
 
                 ctx.restore();
