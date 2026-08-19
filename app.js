@@ -503,7 +503,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Updated Butterfly with M        class Butterfly {
+        // Updated Butterfly with Music Note Trail
+        class Butterfly {
             constructor() {
                 this.reset(true); // Initial load spreads them across the screen
             }
