@@ -510,60 +510,44 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             reset(initial = false) {
+                // Spread them all over the screen initially. Otherwise, spawn from a random screen border
                 if (initial) {
                     this.x = Math.random() * w;
                     this.y = Math.random() * h;
-                    let angle = Math.random() * Math.PI * 2;
-                    let speed = Math.random() * 0.6 + 0.6;
-                    this.vx = Math.cos(angle) * speed;
-                    this.vy = Math.sin(angle) * speed;
                 } else {
-                    // Spawn along the screen edges (top, bottom, left, right) and drift towards center
                     const edge = Math.floor(Math.random() * 4);
-                    let angleToCenter;
                     switch(edge) {
-                        case 0: // Top edge
-                            this.x = Math.random() * w;
-                            this.y = -30;
-                            angleToCenter = Math.random() * Math.PI + 0.1;
-                            break;
-                        case 1: // Bottom edge
-                            this.x = Math.random() * w;
-                            this.y = h + 30;
-                            angleToCenter = -Math.random() * Math.PI - 0.1;
-                            break;
-                        case 2: // Left edge
-                            this.x = -30;
-                            this.y = Math.random() * h;
-                            angleToCenter = (Math.random() - 0.5) * Math.PI * 0.8;
-                            break;
-                        case 3: // Right edge
-                            this.x = w + 30;
-                            this.y = Math.random() * h;
-                            angleToCenter = Math.PI - (Math.random() - 0.5) * Math.PI * 0.8;
-                            break;
+                        case 0: this.x = Math.random() * w; this.y = -25; break; // Top
+                        case 1: this.x = Math.random() * w; this.y = h + 25; break; // Bottom
+                        case 2: this.x = -25; this.y = Math.random() * h; break; // Left
+                        case 3: this.x = w + 25; this.y = Math.random() * h; break; // Right
                     }
-                    let speed = Math.random() * 0.6 + 0.6; // Slow drifting speed
-                    this.vx = Math.cos(angleToCenter) * speed;
-                    this.vy = Math.sin(angleToCenter) * speed;
                 }
 
-                this.baseY = this.y;
+                // Choose a fast, organic flight angle (faster speeds: 2.2 to 3.6)
+                let angle = Math.random() * Math.PI * 2;
+                let speed = Math.random() * 1.4 + 2.2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+
                 this.anglePhase = Math.random() * Math.PI * 2;
                 this.wingFlapPhase = Math.random() * Math.PI * 2;
-                this.wingFlapSpeed = Math.random() * 0.12 + 0.14;
+                this.wingFlapSpeed = Math.random() * 0.16 + 0.22; // Faster flap speed for fast flight
                 const colors = ["#1ed760", "#8b5cf6", "#ec4899", "#06b6d4"];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
                 this.size = Math.random() * 8 + 18; // Large beautiful butterfly
             }
 
             update() {
-                // Organic drift path updates (turning angle randomly like wallpaper)
+                // Live wallpaper wrap-around movement
+                // Gentle direction changes (random walk/organic drift)
+                this.anglePhase += 0.04;
                 let currentAngle = Math.atan2(this.vy, this.vx);
-                currentAngle += (Math.random() - 0.5) * 0.1; // gentle turning
+                currentAngle += (Math.random() - 0.5) * 0.12; // Organic turns
                 
                 let speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                speed = Math.max(0.6, Math.min(1.5, speed + (Math.random() - 0.5) * 0.05));
+                // Keep the speed fast! Bounded between 2.0 and 3.8
+                speed = Math.max(2.0, Math.min(3.8, speed + (Math.random() - 0.5) * 0.1));
                 
                 this.vx = Math.cos(currentAngle) * speed;
                 this.vy = Math.sin(currentAngle) * speed;
@@ -572,16 +556,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.y += this.vy;
                 this.wingFlapPhase += this.wingFlapSpeed;
 
-                // Reset if offscreen in any direction
-                if (this.x < -100 || this.x > w + 100 || this.y < -100 || this.y > h + 100) {
-                    this.reset();
+                // Live Wallpaper Wrap-Around Logic
+                const pad = this.size + 15;
+                if (this.x > w + pad) {
+                    this.x = -pad;
+                } else if (this.x < -pad) {
+                    this.x = w + pad;
+                }
+
+                if (this.y > h + pad) {
+                    this.y = -pad;
+                } else if (this.y < -pad) {
+                    this.y = h + pad;
                 }
 
                 // Spawn sparkles and music notes
-                if (Math.random() < 0.25) {
+                if (Math.random() < 0.2) {
                     sparkles.push(new Sparkle(this.x, this.y, true));
                 }
-                if (Math.random() < 0.05) {
+                if (Math.random() < 0.04) {
                     musicNotes.push(new MusicNote(this.x, this.y));
                 }
             }
