@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: sonora-music
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: "."

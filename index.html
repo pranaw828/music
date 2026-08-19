@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONORA - Premium Music & Audio Experience</title>
+    <meta name="description" content="Discover premium audio that fits your mood. SONORA is a next-generation music streaming experience with personalized taste profiling.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Ambient Glowing Backdrops -->
+    <div class="ambient-glow">
+        <div class="glow-orb glow-orb-1" id="glow-orb-left"></div>
+        <div class="glow-orb glow-orb-2" id="glow-orb-right"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
+
+    <!-- 1. TOP NAVIGATION -->
+    <header class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo-container" id="nav-logo">
+                <div class="logo-icon">
+                    <div class="logo-inner"></div>
+                </div>
+                <span class="logo-text">SONORA</span>
+            </a>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" id="nav-link-premium">Premium</a></li>
+                    <li><a href="#discover" id="nav-link-explore">Explore</a></li>
+                    <li><a href="#features" id="nav-link-features">Features</a></li>
+                    <li><a href="#download" id="nav-link-download">Download</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#" class="nav-login" id="btn-login">Log in</a>
+                <button class="btn btn-primary" id="btn-signup" onclick="document.getElementById('cta-section').scrollIntoView({behavior: 'smooth'})">Sign up free</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="container hero-grid">
+            <div class="hero-left">
+                <div class="eyebrow" id="hero-eyebrow">YOUR SOUND. YOUR MOMENT.</div>
+                <h1 class="hero-title" id="hero-heading">Feel more.<br>Live more.<br><span class="gradient-text-hero">Music.</span></h1>
+                <p class="hero-subtitle" id="hero-sub">Sonora brings you millions of songs, podcasts and moments that sound like you.</p>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="hero-btn-start" onclick="document.getElementById('cta-section').scrollIntoView({behavior: 'smooth'})">Start listening free</button>
+                    <button class="btn btn-text" id="hero-btn-premium" onclick="document.getElementById('discover').scrollIntoView({behavior: 'smooth'})">
+                        Explore Premium <span class="arrow">&rarr;</span>
+                    </button>
+                </div>
+
+                <div class="social-proof">
+                    <div class="avatar-group">
+                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80')"></div>
+                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80')"></div>
+                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80')"></div>
+                        <div class="avatar-circle" style="background-image: url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=80&h=80&q=80')"></div>
+                    </div>
+                    <span class="social-proof-text">Join millions of listeners already feeling more.</span>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="hero-visual-container">
+                    <div class="glowing-sound-sphere"></div>
+                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=600&h=600&q=80" alt="Gen Z listener wearing premium headphones" class="hero-visual-img" id="hero-art">
+                    
+                    <!-- Floating Cards -->
+                    <div class="floating-card glass-panel hero-card-chill" id="hero-card-chill">
+                        <div class="track-info-row">
+                            <img src="./cover_lofi.png" alt="Chill Vibes" class="track-cover-mini">
+                            <div class="track-details">
+                                <div class="track-title-mini">Chill Vibes</div>
+                                <div class="track-artist-mini">Playlist</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card glass-panel hero-card-daily" id="hero-card-daily">
+                        <div class="track-info-row">
+                            <img src="./cover_daily.png" alt="Daily Mix" class="track-cover-mini">
+                            <div class="track-details">
+                                <div class="track-title-mini">Daily Mix 2</div>
+                                <div class="track-artist-mini">Made for you</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card glass-panel hero-card-focus" id="hero-card-focus">
+                        <div class="track-info-row">
+                            <img src="./cover_discover.png" alt="Focus Flow" class="track-cover-mini">
+                            <div class="track-details">
+                                <div class="track-title-mini">Focus Flow</div>
+                                <div class="track-artist-mini">Playlist</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card glass-panel hero-card-player" id="hero-card-player">
+                        <div class="track-card-content">
+                            <div class="track-info-row">
+                                <div class="track-cover-mini" id="hero-player-cover" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);"></div>
+                                <div class="track-details">
+                                    <div class="track-title-mini" id="hero-player-title">Afterglow</div>
+                                    <div class="track-artist-mini" id="hero-player-artist">Nova Vale</div>
+                                </div>
+                                <button class="track-play-btn" id="hero-player-play" aria-label="Play track">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="#000000"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
+                            </div>
+                            <div class="track-controls-row">
+                                <span id="hero-player-time">0:00</span>
+                                <div class="progress-bar-container" id="hero-player-progress">
+                                    <div class="progress-fill" id="hero-player-fill" style="width: 0%;"></div>
+                                </div>
+                                <span id="hero-player-total">3:18</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. FEATURES SECTION + MOBILE MOCKUP -->
+    <section class="features-section reveal-on-scroll" id="features">
+        <div class="container features-grid">
+            <div class="features-left">
+                <div class="eyebrow">THE SONORA EXPERIENCE</div>
+                <h2 class="features-headline">Music for every part of you</h2>
+                
+                <div class="features-list">
+                    <!-- Feature 1 -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper" style="background-color: rgba(30, 215, 96, 0.1); color: var(--color-emerald);">
+                            <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Discover new favorites</h3>
+                            <p>Find new artists, genres and songs that fit your vibe.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper" style="background-color: rgba(139, 92, 246, 0.1); color: var(--color-purple);">
+                            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Made for you</h3>
+                            <p>Get playlists and mixes personalized just for you.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper" style="background-color: rgba(6, 182, 212, 0.1); color: var(--color-cyan);">
+                            <svg viewBox="0 0 24 24" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Play anywhere</h3>
+                            <p>Listen on your phone, speaker, or any device.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper" style="background-color: rgba(236, 72, 153, 0.1); color: var(--color-pink);">
+                            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Sound that hits</h3>
+                            <p>High quality audio. Every beat, crystal clear.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-right" id="download">
+                <div class="features-glow-bg"></div>
+                <img src="./phone_mockup.png" alt="Sonora Mobile App and Headsets" class="phone-mockup-img" id="phone-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. EVERY MOMENT SECTION -->
+    <section class="every-moment-section reveal-on-scroll" id="every-moment">
+        <div class="container">
+            <div class="moment-card-container">
+                <canvas class="moment-connecting-waveform" id="connecting-waveform-moment"></canvas>
+                
+                <div class="moment-left">
+                    <div class="eyebrow" style="color: var(--color-purple); margin-bottom: 16px;">NOT JUST MUSIC</div>
+                    <h2 class="moment-headline">Every moment<br>has a soundtrack</h2>
+                    <p class="moment-sub">From hype to healing, from focus to freedom — we've got the music for it.</p>
+                    
+                    <div class="moment-play-vibe" id="btn-play-vibe">
+                        <button class="play-vibe-btn" aria-label="Play vibe mix">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
+                        <div>
+                            <div class="vibe-text-title">Play my vibe</div>
+                            <div class="vibe-text-sub">Let Sonora pick the perfect mix</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="moment-right">
+                    <!-- Vibe 1: Hype -->
+                    <div class="vibe-card-vertical vibe-hype" data-track-id="2">
+                        <h4>Hype</h4>
+                    </div>
+                    <!-- Vibe 2: Relax -->
+                    <div class="vibe-card-vertical vibe-relax" data-track-id="0">
+                        <h4>Relax</h4>
+                    </div>
+                    <!-- Vibe 3: Focus -->
+                    <div class="vibe-card-vertical vibe-focus" data-track-id="1">
+                        <h4>Focus</h4>
+                    </div>
+                    <!-- Vibe 4: Party -->
+                    <div class="vibe-card-vertical vibe-party" data-track-id="4">
+                        <h4>Party</h4>
+                    </div>
+                    <!-- Vibe 5: Sleep -->
+                    <div class="vibe-card-vertical vibe-sleep" data-track-id="3">
+                        <h4>Sleep</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. MADE FOR YOUR MOOD ALBUMS -->
+    <section class="mood-playlists-section reveal-on-scroll" id="discover">
+        <div class="container">
+            <div class="mood-section-header">
+                <h2>Made for your mood</h2>
+                <a href="#discover">See more &rarr;</a>
+            </div>
+
+            <div class="playlist-carousel-wrapper">
+                <!-- Album 1 -->
+                <div class="playlist-card" data-track-id="0">
+                    <div class="playlist-art-wrapper">
+                        <img src="./cover_discover.png" alt="Discover Weekly" class="playlist-art">
+                        <div class="playlist-hover-play">
+                            <div class="playlist-play-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="playlist-title">Discover Weekly</div>
+                    <div class="playlist-desc">Your weekly mixtape of fresh sounds.</div>
+                    <div class="playlist-followers">2.6M followers</div>
+                </div>
+
+                <!-- Album 2 -->
+                <div class="playlist-card" data-track-id="4">
+                    <div class="playlist-art-wrapper">
+                        <img src="./cover_daily.png" alt="Daily Mix 1" class="playlist-art">
+                        <div class="playlist-hover-play">
+                            <div class="playlist-play-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="playlist-title">Daily Mix 1</div>
+                    <div class="playlist-desc">Personalized mix based on your favorites.</div>
+                    <div class="playlist-followers">3.2M followers</div>
+                </div>
+
+                <!-- Album 3 -->
+                <div class="playlist-card" data-track-id="0">
+                    <div class="playlist-art-wrapper">
+                        <img src="./cover_lofi.png" alt="lofi beats" class="playlist-art">
+                        <div class="playlist-hover-play">
+                            <div class="playlist-play-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="playlist-title">lofi beats</div>
+                    <div class="playlist-desc">Chill synth and beats to study and relax.</div>
+                    <div class="playlist-followers">1.8M followers</div>
+                </div>
+
+                <!-- Album 4 -->
+                <div class="playlist-card" data-track-id="1">
+                    <div class="playlist-art-wrapper">
+                        <img src="./cover_tothits.png" alt="Today's Top Hits" class="playlist-art">
+                        <div class="playlist-hover-play">
+                            <div class="playlist-play-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="playlist-title">Today's Top Hits</div>
+                    <div class="playlist-desc">The absolute hottest 50 tracks today.</div>
+                    <div class="playlist-followers">28.7M followers</div>
+                </div>
+
+                <!-- Album 5 -->
+                <div class="playlist-card" data-track-id="2">
+                    <div class="playlist-art-wrapper">
+                        <img src="./cover_rap.png" alt="Rap Caviar" class="playlist-art">
+                        <div class="playlist-hover-play">
+                            <div class="playlist-play-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="playlist-title">Rap Caviar</div>
+                    <div class="playlist-desc">Brand new hip-hop tracks and heavy beats.</div>
+                    <div class="playlist-followers">12.4M followers</div>
+                </div>
+
+                <!-- Album 6 -->
+                <div class="playlist-card" data-track-id="3">
+                    <div class="playlist-art-wrapper">
+                        <img src="./cover_allout.png" alt="All Out 2010s" class="playlist-art">
+                        <div class="playlist-hover-play">
+                            <div class="playlist-play-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="playlist-title">All Out 2010s</div>
+                    <div class="playlist-desc">The decade's biggest pop and rock hits.</div>
+                    <div class="playlist-followers">9.3M followers</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA BANNER SECTION -->
+    <section class="cta-section reveal-on-scroll" id="cta-section">
+        <div class="container">
+            <div class="cta-banner-wrapper">
+                <div class="cta-left">
+                    <h2 class="cta-headline">Ready to find your next favorite song?</h2>
+                    <p class="cta-sub">Join Sonora free and start listening today.</p>
+                </div>
+                <div class="cta-right">
+                    <button class="btn btn-primary" onclick="alert('Welcome to Sonora! This is a mockup homepage.')" style="padding: 16px 36px; font-size: 1rem;">Sign up free</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo-container" style="gap: 10px;">
+                        <div class="logo-icon" style="width: 28px; height: 28px;"><div class="logo-inner" style="width: 10px; height: 10px;"></div></div>
+                        <span class="logo-text" style="font-size: 1.25rem;">SONORA</span>
+                    </a>
+                    <p class="footer-slogan">Listening is everything.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Jobs</a></li>
+                        <li><a href="#">For the Record</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-col">
+                    <h5>Communities</h5>
+                    <ul>
+                        <li><a href="#">For Artists</a></li>
+                        <li><a href="#">Developers</a></li>
+                        <li><a href="#">Advertising</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-col">
+                    <h5>Useful Links</h5>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Web Player</a></li>
+                        <li><a href="#">Free Mobile App</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span id="copyright">&copy; 2026 SONORA Music AB. All rights reserved.</span>
+                <div class="footer-meta-links">
+                    <a href="#">Legal</a>
+                    <a href="#">Privacy Center</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="magical-overlay"></canvas>
+    <script src="app.js"></script>
+</body>
+</html>
