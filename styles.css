@@ -993,12 +993,28 @@ a {
 @media (max-width: 768px) {
     .moment-right {
         grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    .vibe-card-vertical {
+        height: 200px;
+        padding: 16px 12px;
     }
 }
 
 @media (max-width: 480px) {
     .moment-right {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .vibe-card-vertical {
+        height: 130px;
+        padding: 12px 8px;
+    }
+    .vibe-card-vertical:last-child {
+        grid-column: span 2;
+    }
+    .vibe-card-vertical h4 {
+        font-size: 0.95rem;
     }
 }
 
@@ -1110,9 +1126,25 @@ a {
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .playlist-carousel-wrapper {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 10px 4px 20px 4px;
+        margin: 0 -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        grid-template-columns: none;
+        scrollbar-width: none;
+    }
+    .playlist-carousel-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+    .playlist-card {
+        flex: 0 0 190px;
+        scroll-snap-align: start;
     }
 }
 
@@ -1431,6 +1463,11 @@ a {
     50% { transform: translateY(-6px) translate(0px, 0px); }
 }
 
+@keyframes floatCardTrackCentered {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+}
+
 .hero-left #hero-eyebrow {
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -1537,14 +1574,21 @@ a {
         max-width: 280px;
     }
     
+    .hero-visual-container {
+        margin-bottom: 90px;
+    }
+
     .hero-card-player {
-        position: relative;
-        bottom: auto;
+        position: absolute;
+        bottom: -80px;
         right: auto;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 32px);
         max-width: 320px;
-        margin: 30px auto 0 auto;
+        margin: 0;
         z-index: 20;
+        animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards, floatCardTrackCentered 9s ease-in-out infinite 2.2s;
     }
 
     .hero-card-chill,
